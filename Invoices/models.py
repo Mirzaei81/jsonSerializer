@@ -1,0 +1,71 @@
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.utils.crypto import get_random_string
+from django.core import validators
+from django.utils import timezone
+def randomUID():
+	return get_random_string(32,"abcdefghijklmnopqrtuvwxyz123456789")
+# Create your models here.
+class CustomUser(AbstractUser):
+	class phoneValidator(validators.RegexValidator):
+		regex = "(?=^[0-9]{11})(?=^09)$"
+		message = "Phonenumber is invalid"
+	uid = models.CharField("uid",unique=True,default=randomUID,max_length=32)
+	code = models.IntegerField("code",null=True)
+	phone = models.CharField("phone",unique=True,validators=[phoneValidator],max_length=11)
+	gender = models.BooleanField("gender",default=False)
+	father_name = models.CharField("father_name",max_length=255)
+class License(models.Model):
+	_id = models.CharField("_id",unique=True,default=randomUID,max_length=33)
+	code = models.CharField("code",max_length=255)
+	organization_1 = models.CharField("organization_1",max_length=255)
+class Data(models.Model):
+	provinceChoises = (
+	('آذربایجان شرقی','آذربایجان شرقی'),
+	( 'آذربایجان غربی','آذربایجان غربی'),
+	( 'اردبیل','اردبیل'),
+	( 'اصفهان','اصفهان'),
+	( 'البرز','البرز'),
+	( 'ایلام','ایلام'),
+	( 'بوشهر','بوشهر'),
+	( 'تهران','تهران'),
+	( 'چهارمحال و بختیاری','چهارمحال و بختیاری'),
+	( 'خراسان جنوبی','خراسان جنوبی'),
+	( 'خراسان رضوی','خراسان رضوی'),
+	( 'خراسان شمالی','خراسان شمالی'),
+	( 'خوزستان','خوزستان'),
+	( 'زنجان','زنجان'),
+	( 'سمنان','سمنان'),
+	( 'سیستان و بلوچستان','سیستان و بلوچستان'),
+	( 'فارس','فارس'),
+	( 'قزوین','قزوین'),
+	( 'قم','قم'),
+	( 'کردستان','کردستان'),
+	( 'کرمان','کرمان'),
+	( 'کرمانشاه','کرمانشاه'),
+	( 'کهگیلویه و بویراحمد','کهگیلویه و بویراحمد'),
+	( 'گلستان','گلستان'),
+	( 'گیلان','گیلان'),
+	( 'لرستان','لرستان'),
+	( 'مازندران','مازندران'),
+	( 'مرکزی','مرکزی'),
+	( 'هرمزگان','هرمزگان'),
+	( 'همدان','همدان'),
+	( 'یزد','یزد'),
+	)
+	Issuer = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="orders")
+	License = models.ForeignKey(License,verbose_name="licesne_id",on_delete=models.CASCADE,related_name="Licences")
+	statusChoises = (("صادر شده","صادر شده"),("رد شده","رد شده"))
+	postalCode = models.CharField("postal_code",max_length=20)
+	address=models.TextField("address")  
+	province=models.CharField("province",choices=provinceChoises,max_length=20,null=False),
+	township=models.CharField("township",max_length=255),
+	issue_date= models.DateField("issueDate",default=timezone.now)
+	status= models.CharField("status",choices=statusChoises,max_length=32,null=False),
+
+class Inquiry_list(models.Model):
+	resultChoises = (("تایید شده","تایید شده"),("رد شده","رد شده"))
+	title=models.CharField("title",max_length=255)
+	result = models.CharField("result",max_length=255,choices=resultChoises)
+	data = models.ForeignKey(Data,on_delete=models.CASCADE,related_name="Inquiries_lists")
+
