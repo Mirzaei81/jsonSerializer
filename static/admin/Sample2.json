@@ -1,0 +1,69 @@
+{
+  "success": true,
+  "data": {
+    "_id": "66a666a666a666a",
+    "postal_code": "****798161",
+    "license_id": 6565656,
+    "address": "استان شهر  ناحیه کوچه پلاک واحد",
+    "province": "ضصثضص",
+    "township": "ضصثضصث",
+    "issue_date": "2023-05-20T07:23:38.000Z",
+    "status": "صادر شده",
+    "inquiry_list": [
+      {
+        "title": "g",
+        "result": "تایید شده"
+      },
+      {
+        "title": "u",
+        "result": "تایید شده"
+      },
+      {
+        "title": "i",
+        "result": "تایید شده"
+      },
+      {
+        "title": "q",
+        "result": "تایید شده"
+      },
+      {
+        "title": "a",
+        "result": "تایید شده"
+      },
+      {
+        "title": "b",
+        "result": "تایید شده"
+      },
+      {
+        "title": "c",
+        "result": "تایید شده"
+      },
+      {
+        "title": "d",
+        "result": "تایید شده"
+      },
+      {
+        "title": "f",
+        "result": "تایید شده"
+      },
+      {
+        "title": "h",
+        "result": "تایید شده"
+      }
+    ],
+    "user": {
+      "uid": "ssd8f7s8df78sd7f8s7df8s87sd8f7s",
+      "code": "608****265",
+      "phone": "0910*****14",
+      "gender": 1,
+      "user_name": "شسیشسی",
+      "father_name": "شسیشسی"
+    },
+    "license": {
+      "_id": "6h6h6h6h6h6h6h6h",
+      "id": 9898989898,
+      "code": "8900000086051",
+      "organization_1": "شسبشسب شسشمکسمب شسبمنشمسب کمشنسکبشب"
+    }
+  }
+}

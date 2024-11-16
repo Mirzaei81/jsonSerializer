@@ -1,0 +1,116 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block extrahead %}
+    <style>
+.error{
+    color: #D8000C;
+    background-color: #FFBABA;
+    border: 1px solid;
+    margin: 10px 0px;
+    padding: 15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.submit-row{
+    padding: 12px 14px 12px;
+    margin: 0 0 20px;
+    background: var(--darkened-bg);
+    border: 1px solid var(--hairline-color);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+    </style>
+{% endblock %}
+{% block content %}
+<h1>
+    Import
+</h1>
+<p>
+    Below is the Preview of the Files you just uploaded if you're satisfied with result please enter Confirm 
+</p>
+    <div>User</div>
+    <table>
+        <thead>
+            <tr>
+                {% for h in userHeader%}
+                <th>{{h}}</th>
+                {%endfor%}
+            </tr>
+        </thead>
+        <tbody>
+            {%for u in user %} 
+            <tr>
+                <td>{{u.uid}}</td>
+                <td>{{u.code}}</td>
+                <td>{{u.phone}}</td>
+                <td>{{u.gender}}</td>
+                <td>{{u.father_name}}</td>
+            </tr>
+            {%endfor%}
+
+        </tbody>
+    </table>
+
+    <div>Data</div>
+    <table>
+        <tr>
+            {% for h in dataHeader%}
+            <th>{{h}}</th>
+            {%endfor%}
+        </tr>
+            {%for d in data %} 
+            <tr>
+                <td>{{d.id}}</td>
+                <td>{{d.PostalCode }}</td>
+                <td>{{d.Address}}</td>
+                <td>{{d.Province}}</td>
+                <td>{{d.Status}}</td>
+                <td>{{d.Township}}</td>
+                <td>{{d.Issue_date}}</td>
+            </tr>
+            {%endfor%}
+    </table>
+    <div>License</div>
+    <table>
+        <thead>
+            <tr>
+                {% for h in licenseHeader%}
+                <th>{{h}}</th>
+                {%endfor%}
+            </tr>
+        </thead>
+        <tbody>
+            {%for l in license%}
+            <tr>
+                <td>{{l.id}} </td>
+                <td>{{l.code}} </td>
+                <td>{{l.organization_1}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+    <div class="submit-row">
+        <input class="default" type="button" onclick="Confirm()" value="Confirm">
+    </div>
+{% endblock %}
+{% block footer %}
+<script>
+ const Confirm = async ()=>{
+    var csrftoken = '{{ csrf_token }}';
+    var tempId = '{{ temp_id }}'
+    const formData = new FormData();
+    formData.append("csrfmiddlewaretoken",csrftoken)
+    console.log(window.location.href+"/"+tempId)
+    const res = await fetch(window.location.href+"?tempId="+tempId,{method:"PUT",body:formData,headers:{'X-CSRFToken': csrftoken}}) 
+    const dom = await res.text()
+    console.log(dom)
+    document.write(dom)
+ }
+</script>
+{% endblock %}

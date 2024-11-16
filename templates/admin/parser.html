@@ -1,0 +1,53 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <style>
+.error{
+    color: #D8000C;
+    background-color: #FFBABA;
+    border: 1px solid;
+    margin: 10px 0px;
+    padding: 15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.submit-row{
+    padding: 12px 14px 12px;
+    margin: 0 0 20px;
+    background: var(--darkened-bg);
+    border: 1px solid var(--hairline-color);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+    </style>
+{% endblock %}
+{% block extrastyle %} 
+{% endblock %}
+{% block content %}
+<h1>
+Import 
+</h1>
+<p>
+    import you're json that are in this <a  target="_blank" rel="noopener noreferrer" href="{% static 'admin/Sample.json' %}">format </a>
+    <form action="/admin/parser/" enctype="multipart/form-data" method="post">
+        {%csrf_token%}
+        {{form.as_p}}
+        <div class="submit-row">
+            <input type="submit" class="default">
+        </div>
+    </form>
+    {%if error%}
+        <div class="error">
+            {{error}}
+        </div>
+    {% endif %}
+</p>
+
+{% endblock %}
