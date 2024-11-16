@@ -10,7 +10,8 @@ class Inquiry_listAdmin(admin.ModelAdmin):
 	list_display = ["title","result","data__id"]
 @admin.register(Data)
 class DataAdmin(admin.ModelAdmin):
-	list_display = ["postalCode","Issuer","License__organization_1","address","issue_date","province","status"] 
+	list_display = ["Status","PostalCode","Issuer","License__organization_1","Address","Issue_date",
+				 ] #"province"
 @admin.register(License)
 class LicenseAdmin(admin.ModelAdmin):
 	list_display =  ["_id","code","organization_1",]

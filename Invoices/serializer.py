@@ -25,4 +25,4 @@ class data_serilaizer(serializers.ModelSerializer):
 	License =  licence_serializer()
 	class Meta:
 		model = Data
-		fields = ["postalCode","Issuer","License","address","issue_date","province","status"] 
+		fields = ["PostalCode","Issuer","License","Address","Issue_date","Province","Status"] 

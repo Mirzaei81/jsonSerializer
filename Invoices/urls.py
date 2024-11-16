@@ -6,4 +6,4 @@ router.register(r"user",UserViewSet,"user")
 router.register(r"data-Detail",DataViewSet)
 router.register(r"lisance",LicenceViewSet,"lisance")
 router.register(r"inquery",InqueryViewSet,"inquery")
-urlpatterns = router.urls
+urlpatterns = [path("<pk>",MainView.as_view())]+router.urls
