@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-	
-
-=======
 from django import forms
 
 class MultipleFileInput(forms.ClearableFileInput):
@@ -23,4 +19,3 @@ class MultipleFileField(forms.FileField):
 
 class InputForm(forms.Form):
 	files_field = MultipleFileField()
->>>>>>> 1e6b517 (Refacotor Changes to match the given JSON File)

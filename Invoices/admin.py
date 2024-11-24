@@ -11,15 +11,10 @@ class Inquiry_listAdmin(admin.ModelAdmin):
 	list_display = ["title","result","data_id"]
 @admin.register(Data)
 class DataAdmin(admin.ModelAdmin):
-<<<<<<< HEAD
-	list_display = ["Status","PostalCode","Issuer","License__organization_1","Address","Issue_date",
-				 ] #"province"
-=======
 	list_display = ["Status","PostalCode","Issuer","Address","Issue_date","get_license"
 				 ] #"province"
 	def get_license(self,obj):
             return obj.license.code
->>>>>>> 1e6b517 (Refacotor Changes to match the given JSON File)
 @admin.register(License)
 class LicenseAdmin(admin.ModelAdmin):
 	list_display =  ["id","code","organization_1",]

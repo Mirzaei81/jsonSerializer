@@ -33,10 +33,6 @@ class data_serilaizer(serializers.ModelSerializer):
 	def validate_Issuer(self,value):
 		return value
 	class Meta:
-<<<<<<< HEAD
-		model = Data
-		fields = ["PostalCode","Issuer","License","Address","Issue_date","Province","Status"] 
-=======
 		model =	Data
 		fields = ["PostalCode","Issuer","License","Address","Issue_date","Province","Status"] 
 class main_serilaizer(serializers.Serializer):
@@ -51,4 +47,3 @@ class main_serilaizer(serializers.Serializer):
 	inquiry_list=inquiry_list_serializer(many=True)	
 	user=user_serializer()
 	license= licence_serializer()
->>>>>>> 1e6b517 (Refacotor Changes to match the given JSON File)

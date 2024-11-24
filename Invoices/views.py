@@ -40,8 +40,6 @@ class MainView(RetrieveAPIView):
 def HandleJsonUpload(data,ctx)->list[User,Data,License]:
 	# Loadding a file ot dict via json .load and then converting it to caseInsentive one
 	data = CaseInsensitiveDict(data["data"])
-	for il in data["inquiry_list"]:
-		pass
 	user,uCreated =User.objects.get_or_create(uid=data["user"]["uid"] ,defaults={
 		"code":data["user"]["code"] ,
 		"phone":data["user"]["phone"] ,

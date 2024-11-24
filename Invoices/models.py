@@ -39,24 +39,6 @@ statusChoises = (("صادر شده","صادر شده"),("رد شده","رد شد
 def randomUID():
 	return get_random_string(32,"abcdefghijklmnopqrtuvwxyz123456789")
 # Create your models here.
-<<<<<<< HEAD
-class CustomUser(AbstractUser):
-	class phoneValidator(validators.RegexValidator):
-		regex = "(?=^[0-9]{11})(?=^09)$"
-		message = "Phonenumber is invalid"
-	uid = models.CharField("uid",unique=True,default=randomUID,max_length=32)
-	code = models.IntegerField("code",null=True)
-	phone = models.CharField("phone",unique=True,validators=[phoneValidator],max_length=11)
-	gender = models.BooleanField("gender",default=False)
-	father_name = models.CharField("father_name",max_length=255)
-class License(models.Model):
-	_id = models.CharField("_id",unique=True,default=randomUID,max_length=33)
-	code = models.CharField("code",max_length=255)
-	organization_1 = models.CharField("organization_1",max_length=255)
-class Data(models.Model):
-	Issuer = models.ForeignKey(CustomUser,on_delete=models.CASCADE,related_name="orders")
-	License = models.ForeignKey(License,verbose_name="licesne_id",on_delete=models.CASCADE,related_name="Licences")
-=======
 class User(models.Model):
 	class phoneValidator(validators.RegexValidator):
 		regex = "(?=^[0-9]{11})(?=^09)$"
@@ -76,7 +58,6 @@ class Data(models.Model):
 	id =models.CharField("id",primary_key=True,max_length=33)
 	Issuer = models.ForeignKey(User,on_delete=models.CASCADE,related_name="orders")
 	License = models.ForeignKey(License,verbose_name="licesne",on_delete=models.CASCADE,related_name="Licences")
->>>>>>> 1e6b517 (Refacotor Changes to match the given JSON File)
 	PostalCode = models.CharField("postal_code",max_length=20)
 	Address=models.TextField("address")  
 	Province=models.CharField("province",max_length=255,choices=provinceChoises)
