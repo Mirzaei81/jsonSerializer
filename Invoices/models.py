@@ -62,13 +62,8 @@ class Data(models.Model):
 	Address=models.TextField("address")  
 	Province=models.CharField("province",max_length=255,choices=provinceChoises)
 	Status= models.CharField("status",max_length=255,choices=statusChoises)
-<<<<<<< HEAD
-	Township=models.CharField("township",max_length=255),
-	Issue_date= models.DateField("issueDate",default=timezone.now)
-=======
 	Township=models.CharField("township",max_length=255)
 	Issue_date= models.DateTimeField("issueDate",default=timezone.now)
->>>>>>> 1e6b517 (Refacotor Changes to match the given JSON File)
 
 class Inquiry_list(models.Model):
 	resultChoises = (("تایید شده","تایید شده"),("رد شده","رد شده"))
