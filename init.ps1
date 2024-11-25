@@ -249,7 +249,6 @@ Add-Type -AssemblyName Microsoft.VisualBasic
 $currentPath = Get-Location
 $pythonPath =Join-Path  $currentPath ".venv\Scripts\python.exe"
 $currentPath = Get-Location
-$pipPath =Join-Path $currentPath ".venv\Scripts\pip.exe"
 $pythonPath =Join-Path  $currentPath ".venv\Scripts\python.exe"
 $title = 'Admin Username: '
 $msg   = 'Enter Admin Username: '
@@ -269,9 +268,12 @@ if(Test-Path -Path ".\.venv"){
     python -m venv .\.venv
 } 
 Invoke-Expression "$pythonPath -m pip  install -v -r requirements.txt"
+Invoke-Expression "$pythonPath -m pip  install -v -r requirements.txt"
 Invoke-Expression "$pythonPath manage.py makemigrations"
 Invoke-Expression "$pythonPath manage.py migrate"
 $createSuperUserCommand  = "from django.contrib.auth.models import User; User.objects.create_superuser('$($DJANGO_SUPERUSER_USERNAME)', '$($DJANGO_SUPERUSER_EMAIL)','$($DJANGO_SUPERUSER_PASSWORD)')" 
+Invoke-Expression "$pythonPath manage.py shell -c `"$createSuperUserCommand`"" 
+Start-Process -FilePath "$pythonPath" -ArgumentList @("manage.py", "runserver", "127.0.0.1:1234") -NoNewWindow
 Invoke-Expression "$pythonPath manage.py shell -c `"$createSuperUserCommand`"" 
 Start-Process -FilePath "$pythonPath" -ArgumentList @("manage.py", "runserver", "127.0.0.1:1234") -NoNewWindow
 Invoke-Expression "$pythonPath manage.py shell -c `"$createSuperUserCommand`"" 
