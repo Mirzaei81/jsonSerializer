@@ -1,7 +1,6 @@
 from django.db import models
-from django.utils.crypto import get_random_string
-from django.core import validators
 from django.utils import timezone
+<<<<<<< HEAD
 
 provinceChoises = (
 	('آذربایجان شرقی','آذربایجان شرقی'),
@@ -47,10 +46,18 @@ class User(models.Model):
 	uid = models.CharField("uid",default=randomUID,max_length=32)
 	code = models.CharField("code",max_length=255,null=True)
 	phone = models.CharField("phone",validators=[phoneValidator],max_length=11,null=True)
+=======
+# Create your models here.
+class User(models.Model):
+	uid = models.CharField("uid",max_length=32,null=True)
+	code = models.CharField("code",max_length=255,null=True)
+	phone = models.CharField("phone",max_length=11,null=True)
+>>>>>>> 068d8c4 (fix bug in Admin panel Update File Upload Count Size)
 	gender = models.BooleanField("gender",default=False,null=True)
 	father_name = models.CharField("father_name",max_length=255,null=True)
 
 class License(models.Model):
+<<<<<<< HEAD
 	_id = models.CharField("_id",default=randomUID,max_length=33)
 	code = models.CharField("code",max_length=255)
 	organization_1 = models.CharField("organization_1",max_length=255)
@@ -63,8 +70,22 @@ class Data(models.Model):
 	Address=models.TextField("address",null=True)  
 	Province=models.CharField("province",max_length=255,choices=provinceChoises,null=True)
 	Status= models.CharField("status",max_length=255,choices=statusChoises,null=True)
+=======
+	_id = models.CharField("_id",max_length=33,null=True)
+	code = models.CharField("code",max_length=255,null=True)
+	organization_1 = models.CharField("organization_1",max_length=255,null=True)
+	Issuer= models.ForeignKey(User,verbose_name="issuer",null=True,on_delete=models.CASCADE,related_name="Licences")
+
+class Data(models.Model):
+	_id =models.CharField("_id",max_length=33,null=True)
+	PostalCode = models.CharField("postal_code",max_length=20,null=True)
+	Address=models.TextField("address",null=True)  
+	Province=models.CharField("province",max_length=255,null=True)
+	Status= models.CharField("status",max_length=255,null=True)
+>>>>>>> 068d8c4 (fix bug in Admin panel Update File Upload Count Size)
 	Township=models.CharField("township",max_length=255,null=True)
 	Issue_date= models.DateTimeField("issueDate",default=timezone.now)
+	Issuer= models.ForeignKey(User,on_delete=models.CASCADE,related_name="Datas",null=True)
 
 class Inquiry_list(models.Model):
 	resultChoises = (("تایید شده","تایید شده"),("تایید نشده","تایید نشده"))

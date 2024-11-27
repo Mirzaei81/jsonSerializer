@@ -40,6 +40,7 @@ class MainView(RetrieveAPIView):
 def HandleJsonUpload(data,ctx)->list[User,Data,License]:
 	# Loadding a file ot dict via json .load and then converting it to caseInsentive one
 	data = CaseInsensitiveDict(data["data"])
+<<<<<<< HEAD
 	user,uCreated =User.objects.get_or_create(uid=data["user"]["uid"] ,defaults={
 		"code":data["user"]["code"] ,
 		"phone":data["user"]["phone"],
@@ -58,6 +59,26 @@ def HandleJsonUpload(data,ctx)->list[User,Data,License]:
 		"Status":data["status"],
 		"Township":data["township"],
 		"Issue_date":datetime.strptime(data["Issue_date"],"%Y-%m-%dT%H:%M:%S.%fZ")}
+=======
+	user,uCreated =User.objects.create(uid=data["user"]["uid"],
+		code=data["user"]["code"] ,
+		phone=data["user"]["phone"],
+		gender=data["user"]["gender"],
+		father_name=data["user"]["father_name"]
+		)
+	license,lCreated = License.objects.create(_id=data["license"]["_id"],
+				code=data["license"]["code"],
+				Issuer=user,
+				organization_1=data["license"]["organization_1"])
+	mainData,DCreated = Data.objects.create(_id=data["_id"],
+		Issuer=user,
+		PostalCode=data["postal_code"],
+		Address=data["address"],
+		Province=data["province"],
+		Status=data["status"],
+		Township=data["township"],
+		Issue_date=datetime.strptime(data["Issue_date"],"%Y-%m-%dT%H:%M:%S.%fZ")
+>>>>>>> 068d8c4 (fix bug in Admin panel Update File Upload Count Size)
 	)
 	inquirieslist = []
 	for iq in data["inquiry_list"]:
@@ -123,3 +144,5 @@ class Parser(FormView):
 				iq.save()
 		comitedFile.delete()
 		return render(self.request,"admin/confirmed.html")
+
+
