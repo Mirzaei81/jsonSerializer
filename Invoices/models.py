@@ -45,9 +45,9 @@ class User(models.Model):
 		message = "Phonenumber is invalid"
 	uid = models.CharField("uid",unique=True,default=randomUID,max_length=32,primary_key=True)
 	code = models.CharField("code",max_length=255,null=True)
-	phone = models.CharField("phone",validators=[phoneValidator],max_length=11)
-	gender = models.BooleanField("gender",default=False)
-	father_name = models.CharField("father_name",max_length=255)
+	phone = models.CharField("phone",validators=[phoneValidator],max_length=11,null=True)
+	gender = models.BooleanField("gender",default=False,null=True)
+	father_name = models.CharField("father_name",max_length=255,null=True)
 
 class License(models.Model):
 	id = models.CharField("id",unique=True,primary_key=True,default=randomUID,max_length=33)
@@ -59,16 +59,16 @@ class Data(models.Model):
 	Issuer = models.ForeignKey(User,on_delete=models.CASCADE,related_name="orders")
 	License = models.ForeignKey(License,verbose_name="licesne",on_delete=models.CASCADE,related_name="Licences")
 	PostalCode = models.CharField("postal_code",max_length=20)
-	Address=models.TextField("address")  
-	Province=models.CharField("province",max_length=255,choices=provinceChoises)
-	Status= models.CharField("status",max_length=255,choices=statusChoises)
-	Township=models.CharField("township",max_length=255)
+	Address=models.TextField("address",null=True)  
+	Province=models.CharField("province",max_length=255,choices=provinceChoises,null=True)
+	Status= models.CharField("status",max_length=255,choices=statusChoises,null=True)
+	Township=models.CharField("township",max_length=255,null=True)
 	Issue_date= models.DateTimeField("issueDate",default=timezone.now)
 
 class Inquiry_list(models.Model):
-	resultChoises = (("تایید شده","تایید شده"),("رد شده","رد شده"))
-	title=models.CharField("title",max_length=255)
-	result = models.CharField("result",max_length=255,choices=resultChoises)
+	resultChoises = (("تایید شده","تایید شده"),("تایید نشده","تایید نشده"))
+	title=models.CharField("title",max_length=255,null=True)
+	result = models.CharField("result",max_length=255,choices=resultChoises,null=True)
 	data = models.ForeignKey(Data,on_delete=models.CASCADE,null=True,related_name="Inquiries_lists")
 class TempData(models.Model):
 	data = models.TextField()

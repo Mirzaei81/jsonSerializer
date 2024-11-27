@@ -11,10 +11,9 @@ class Inquiry_listAdmin(admin.ModelAdmin):
 	list_display = ["title","result","data_id"]
 @admin.register(Data)
 class DataAdmin(admin.ModelAdmin):
-	list_display = ["Status","PostalCode","Issuer","Address","Issue_date","get_license"
-				 ] #"province"
+	list_display = ["Status","PostalCode","Issuer","Address","Issue_date","get_license"] 
 	def get_license(self,obj):
-            return obj.license.code
+            return obj.License.code
 @admin.register(License)
 class LicenseAdmin(admin.ModelAdmin):
 	list_display =  ["id","code","organization_1",]
@@ -32,7 +31,7 @@ class CustomAdminSite(admin.AdminSite):
         self.request.current_app == self.name
         return super().get(self.request)
 
-    def get_app_list(self, request):
+    def get_app_list(self, request,app_label=None):
         app_list = super().get_app_list(request)
         app_list += [
             {

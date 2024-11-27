@@ -49,7 +49,7 @@ def HandleJsonUpload(data,ctx)->list[User,Data,License]:
 	license,lCreated = License.objects.get_or_create(id=data["license"]["_id"],defaults={
 				"code":data["license"]["code"],
 				"organization_1":data["license"]["organization_1"]})
-	data,DCreated = Data.objects.get_or_create(id=data["_id"],defaults={
+	mainData,DCreated = Data.objects.get_or_create(id=data["_id"],defaults={
 		"Issuer":user,
 		"License":license,
 		"PostalCode":data["postal_code"],
@@ -59,14 +59,21 @@ def HandleJsonUpload(data,ctx)->list[User,Data,License]:
 		"Township":data["township"],
 		"Issue_date":datetime.strptime(data["Issue_date"],"%Y-%m-%dT%H:%M:%S.%fZ")}
 	)
+	inquirieslist = []
+	for iq in data["inquiry_list"]:
+		inquirieslist.append(Inquiry_list.objects.create(title=iq["title"],result=iq["result"],data=mainData))
+	if not "inquiry_list" in ctx:
+		ctx["inquiry_list"] = inquirieslist
+	else:
+		ctx["inquiry_list"] +=inquirieslist
 	if not "user" in ctx:
 		ctx["user"] = [user]
 	else:
 		ctx["user"] += [user]
 	if not "data" in ctx:
-		ctx["data"] =[data]
+		ctx["data"] =[mainData]
 	else:
-		ctx["data"] +=[data]
+		ctx["data"] +=[mainData]
 	if not "license" in ctx:
 		ctx["license"] = [license]
 	else:
@@ -74,7 +81,7 @@ def HandleJsonUpload(data,ctx)->list[User,Data,License]:
 	ctx["userHeader"] = [f for f in user.__dict__ if not f.startswith("_")]
 	ctx["dataHeader"] =["id","PostalCode","Address","Province","Status","Township","Issue_date"]
 	ctx["licenseHeader"] = [f for f in license.__dict__ if not f.startswith("_")]
-	return [user,data,license]
+	return [user,mainData,license,inquirieslist]
 
 class Parser(FormView):
 	admin = {}
@@ -108,8 +115,11 @@ class Parser(FormView):
 		comitedFile = TempData.objects.get(id=id)
 		data= json.loads(comitedFile.data)
 		for d in data:
-			models = HandleJsonUpload(d,{})
-			for m in models:
-				m.save()
+			user,mainData,license,inquirieslist = HandleJsonUpload(d,{})
+			user.save()
+			mainData.save()
+			license.save()
+			for iq in inquirieslist:
+				iq.save()
 		comitedFile.delete()
 		return render(self.request,"admin/confirmed.html")
