@@ -1,5 +1,5 @@
 {% extends "admin/base_site.html" %}
-{% load static %}
+{% load static customTags  %}
 {% block extrahead %}
     <style>
 .error{
@@ -49,7 +49,11 @@
                 <td>{{u.uid}}</td>
                 <td>{{u.code}}</td>
                 <td>{{u.phone}}</td>
-                <td>{{u.gender}}</td>
+                {% if u.gender %}
+                <td>male</td>
+                {%else%}
+                <td>femal</td>
+                {%endif %}
                 <td>{{u.father_name}}</td>
             </tr>
             {%endfor%}
@@ -66,7 +70,7 @@
         </tr>
             {%for d in data %} 
             <tr>
-                <td>{{d.id}}</td>
+                <td>{{d|get:"_id"}}</td>
                 <td>{{d.PostalCode }}</td>
                 <td>{{d.Address}}</td>
                 <td>{{d.Province}}</td>
@@ -88,7 +92,7 @@
         <tbody>
             {%for l in license%}
             <tr>
-                <td>{{l.id}} </td>
+                <td>{{l|get:"_id"}} </td>
                 <td>{{l.code}} </td>
                 <td>{{l.organization_1}}</td>
             </tr>

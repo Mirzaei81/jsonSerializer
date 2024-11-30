@@ -42,14 +42,14 @@ def HandleJsonUpload(data,ctx)->list[User,Data,License]:
 	data = CaseInsensitiveDict(data["data"])
 	user,uCreated =User.objects.get_or_create(uid=data["user"]["uid"] ,defaults={
 		"code":data["user"]["code"] ,
-		"phone":data["user"]["phone"] ,
+		"phone":data["user"]["phone"],
 		"gender":data["user"]["gender"],
 		"father_name":data["user"]["father_name"]
 	})
-	license,lCreated = License.objects.get_or_create(id=data["license"]["_id"],defaults={
+	license,lCreated = License.objects.get_or_create(_id=data["license"]["_id"],defaults={
 				"code":data["license"]["code"],
 				"organization_1":data["license"]["organization_1"]})
-	mainData,DCreated = Data.objects.get_or_create(id=data["_id"],defaults={
+	mainData,DCreated = Data.objects.get_or_create(_id=data["_id"],defaults={
 		"Issuer":user,
 		"License":license,
 		"PostalCode":data["postal_code"],
@@ -78,7 +78,7 @@ def HandleJsonUpload(data,ctx)->list[User,Data,License]:
 		ctx["license"] = [license]
 	else:
 		ctx["license"]  += [license]
-	ctx["userHeader"] = [f for f in user.__dict__ if not f.startswith("_")]
+	ctx["userHeader"] = ["uid","code","phone","gender","father_name"]
 	ctx["dataHeader"] =["id","PostalCode","Address","Province","Status","Township","Issue_date"]
 	ctx["licenseHeader"] = [f for f in license.__dict__ if not f.startswith("_")]
 	return [user,mainData,license,inquirieslist]

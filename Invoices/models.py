@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.crypto import get_random_string
 from django.core import validators
 from django.utils import timezone
+
 provinceChoises = (
 	('آذربایجان شرقی','آذربایجان شرقی'),
 	( 'آذربایجان غربی','آذربایجان غربی'),
@@ -43,19 +44,19 @@ class User(models.Model):
 	class phoneValidator(validators.RegexValidator):
 		regex = "(?=^[0-9]{11})(?=^09)$"
 		message = "Phonenumber is invalid"
-	uid = models.CharField("uid",unique=True,default=randomUID,max_length=32,primary_key=True)
+	uid = models.CharField("uid",default=randomUID,max_length=32)
 	code = models.CharField("code",max_length=255,null=True)
 	phone = models.CharField("phone",validators=[phoneValidator],max_length=11,null=True)
 	gender = models.BooleanField("gender",default=False,null=True)
 	father_name = models.CharField("father_name",max_length=255,null=True)
 
 class License(models.Model):
-	id = models.CharField("id",unique=True,primary_key=True,default=randomUID,max_length=33)
+	_id = models.CharField("_id",default=randomUID,max_length=33)
 	code = models.CharField("code",max_length=255)
 	organization_1 = models.CharField("organization_1",max_length=255)
 
 class Data(models.Model):
-	id =models.CharField("id",primary_key=True,max_length=33)
+	_id =models.CharField("_id",max_length=33)
 	Issuer = models.ForeignKey(User,on_delete=models.CASCADE,related_name="orders")
 	License = models.ForeignKey(License,verbose_name="licesne",on_delete=models.CASCADE,related_name="Licences")
 	PostalCode = models.CharField("postal_code",max_length=20)

@@ -1,0 +1,85 @@
+{
+  "success": true,
+  "data": {
+    "_id": "66cd8d5127162b4a033fa487",
+    "isOld": "0",
+    "qr_issue_date": null,
+    "postal_code": "****845311",
+    "license_id": 782359,
+    "address": "",
+    "user_image": "",
+    "qr_image": null,
+    "location": null,
+    "province": null,
+    "township": "فلاورجان",
+    "city": "",
+    "issue_date": "2023-06-12T04:09:47.000Z",
+    "status": "صادر شده",
+    "status_image": null,
+    "inquiry_list": [
+      {
+        "title": "تأییدیه احراز نشانی",
+        "result": "تایید شده"
+      },
+      {
+        "title": "گواهی ۱۸۶ قانون مالیات‌های مستقیم",
+        "result": "تایید شده"
+      },
+      {
+        "title": "دارای نظام وظیفه",
+        "result": "تایید شده"
+      },
+      {
+        "title": "عدم محکومیت مالی",
+        "result": "تایید شده"
+      },
+      {
+        "title": "تصویر متقاضی",
+        "result": "تایید شده"
+      },
+      {
+        "title": "استعلام کد پستی",
+        "result": "تایید شده"
+      },
+      {
+        "title": "تطابق پرونده مالیاتی",
+        "result": "تایید شده"
+      },
+      {
+        "title": "گواهی احکام اصناف",
+        "result": "تایید شده"
+      },
+      {
+        "title": "تاییدیه پلیس نظارت بر اماکن عمومی",
+        "result": "تایید شده"
+      },
+      {
+        "title": "پروانه اشتغال اتباع",
+        "result": "تایید شده"
+      }
+    ],
+    "monitoring": null,
+    "footer": "",
+    "rate": null,
+    "user": {
+      "uid": "20265857264460fa2103c67000167987",
+      "code": "111****290",
+      "phone": "0990*****50",
+      "gender": 1,
+      "user_name": "",
+      "user_type": 0,
+      "father_name": ""
+    },
+    "license": {
+      "_id": "66cd8779a901e75a3f47e924",
+      "id": 782359,
+      "code": "8900000079142",
+      "title": "پروانه کسب درب و پنجره سازی آهنی",
+      "is_permanent": 0,
+      "validity": 5,
+      "validity_unit": 3,
+      "receive_method": 1,
+      "organization_1": ""
+    }
+  }
+}
