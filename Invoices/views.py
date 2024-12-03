@@ -40,17 +40,17 @@ class MainView(RetrieveAPIView):
 def HandleJsonUpload(data,ctx)->list[User,Data,License]:
 	# Loadding a file ot dict via json .load and then converting it to caseInsentive one
 	data = CaseInsensitiveDict(data["data"])
-	user,uCreated =User.objects.create(uid=data["user"]["uid"],
+	user =User(uid=data["user"]["uid"],
 		code=data["user"]["code"] ,
 		phone=data["user"]["phone"],
 		gender=data["user"]["gender"],
 		father_name=data["user"]["father_name"]
 		)
-	license,lCreated = License.objects.create(_id=data["license"]["_id"],
+	license = License(_id=data["license"]["_id"],
 				code=data["license"]["code"],
 				Issuer=user,
 				organization_1=data["license"]["organization_1"])
-	mainData,DCreated = Data.objects.create(_id=data["_id"],
+	mainData = Data(_id=data["_id"],
 		Issuer=user,
 		PostalCode=data["postal_code"],
 		Address=data["address"],
@@ -61,7 +61,7 @@ def HandleJsonUpload(data,ctx)->list[User,Data,License]:
 	)
 	inquirieslist = []
 	for iq in data["inquiry_list"]:
-		inquirieslist.append(Inquiry_list.objects.create(title=iq["title"],result=iq["result"],data=mainData))
+		inquirieslist.append(Inquiry_list(title=iq["title"],result=iq["result"],data=mainData))
 	if not "inquiry_list" in ctx:
 		ctx["inquiry_list"] = inquirieslist
 	else:

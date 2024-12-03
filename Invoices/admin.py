@@ -31,16 +31,10 @@ class Inquiry_listAdmin(admin.ModelAdmin):
 
 @admin.register(Data)
 class DataAdmin(admin.ModelAdmin):
-<<<<<<< HEAD
-	list_display = ["Status","PostalCode","Issuer","Address","Issue_date","get_license"] 
-	def get_license(self,obj):
-            return obj.License.code
-=======
     inlines = [
          Inquiry_listInline
     ]
     # list_display = ["Status","PostalCode","Address","Issue_date","Inquiries_lists"] 
->>>>>>> 068d8c4 (fix bug in Admin panel Update File Upload Count Size)
 @admin.register(License)
 class LicenseAdmin(admin.ModelAdmin):
 	list_display =  ["id","code","organization_1",]
